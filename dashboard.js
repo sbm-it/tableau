@@ -67,7 +67,7 @@ dashboard.UI=function(){
   h='<h4 id="TableauDashboardHeader" style="color:maroon">Tableau Dashboard for <span style="color:navy">'+dashboard.user+'</span> <a href="https://github.com/sbm-it/tableau" target="_blank"><i id="gitIcon" class="fa fa-github-alt" aria-hidden="true" style="color:maroon"></i></a></h4>'
   localStorage.removeItem('tableauDashboard') // TO FORCE LOGIN EVERYTIME
   h+="<hr>"
-  h+='<div id="bodyDiv"></div>'
+  h+='<div id="bodyDiv">...</div>'
   appSpace.innerHTML=h
   dashboard.bodyDiv()
 }
