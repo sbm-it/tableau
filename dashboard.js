@@ -67,6 +67,8 @@ dashboard.UI=function(){
   h='<h4 id="TableauDashboardHeader" style="color:maroon">Tableau Dashboard for <span style="color:navy">'+dashboard.user+'</span> <a href="https://github.com/sbm-it/tableau" target="_blank"><i id="gitIcon" class="fa fa-github-alt" aria-hidden="true" style="color:maroon"></i></a></h4>'
   localStorage.removeItem('tableauDashboard') // TO FORCE LOGIN EVERYTIME
   h+="<hr>"
+  h+='Key words: <span id="keywords"></span>'
+  h+="<hr>"
   h+='<div id="bodyDiv">...</div>'
   appSpace.innerHTML=h
   dashboard.bodyDiv()
@@ -76,20 +78,39 @@ dashboard.bodyDiv=function(){
   h='<h5 style="color:green">The following '+tbls.length+' Tableau Dashboards were assigned to you:</h5>'
   h+='<div id="assignedToYou"></div>'
   bodyDiv.innerHTML=h
+  dashboard.keywords={}
   tbls.forEach(function(tbl,i){
     var p = document.createElement('p')
-    p.innerHTML=i+'. '+tbl
+    var url='https://discovery.analytics.healtheintent.com/t/SBMCIN/views/'+tbl+'?:embed=y&:showShareOptions=true&:display_count=no'
+    p.innerHTML=i+'. <a href="'+url+'" target="_blank">'+tbl+'</a> [<span id="show_'+i+'" style="color:green" onclick="dashboard.show(this)">show</span>]'
     bodyDiv.appendChild(p)
+    p.style.cursor="pointer"
     var div = document.createElement('div')
-    div.innerHTML='...'
-    bodyDiv.appendChild(div)
-
-    4
+    div.style.width='100%'
+    div.style.height='100%'
+    div.innerHTML='<iframe width="100%" height="100%" frameBorder="0" src="'+url+'"></iframe>'
+    p.appendChild(div)
+    div.hidden=true
   })
+  /*
+  h='<hr>'
+  h+='<h5 style="color:green"> ... and an additional are also at hand</h5>'
+  h+='<div id="NotAssignedToYou"></div>'
+  bodyDiv.innerHTML+=h
+  */
 
-
-
-
+}
+dashboard.show=function(that){
+  var div = $('div',that.parentElement)[0]
+  if(div.hidden){
+    div.hidden=false
+    that.textContent="hide"
+    that.style.color="red"
+  }else{
+    div.hidden=true
+    that.textContent="show"
+    that.style.color="green"
+  }
   4
 }
 
